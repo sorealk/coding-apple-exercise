@@ -1,0 +1,89 @@
+<div></div>
+<button id="버튼">버튼</button>
+<button id="버튼2">버튼2</button>
+
+
+<script>
+    'use strict';
+
+// this 의미
+// 1. window object
+// 2. 그 함수를 가지고 있는 오브젝트 (오브젝트 내 함수=메소드 에서 쓸 때), 사실상 1=2 window가 전역 오브젝트라서.
+// 3. 기계(constructor) 안에서 쓰면 새로 생성되는 오브젝트를 뜻함 
+// 4. 이벤트리스너 안에서 e.currentTarget
+
+//1
+// 함수나 변수를 전역공간에서 만들면 -> {window}에 보관함
+    console.log(this);
+    function 함수() {
+        console.log(this);
+    }
+    함수();
+
+//2
+    var 오브젝트 = {
+        data : {
+            함수 : () => {
+                console.log(this)
+            }
+        }
+    }
+    오브젝트.data.함수();    // 신문법 Arrow Function 특징 : this 값을 함수 밖에 있던거 그대로 씀.
+
+//3
+    function 기계() {
+        this.이름 = 'kim'
+    }
+    var 오브젝트2 = new 기계();
+
+//4
+    document.getElementById('버튼').addEventListener('click', 
+    function(e) {
+        this; // e.currentTarget;
+    })
+
+    //this Case Study
+    //1.이벤트 리스너 안에서 콜백함수 쓸때 this?
+    //2. 오브젝트 내에서 콜백함수 쓸때 this?
+    //3. arrow function 안에서 this?
+
+// case 1
+document.getElementById('버튼2').addEventListener('click', 
+    function(e) {
+        var 어레이 = [1,2,3];
+        어레이.forEach(function(a){ //콜백함수: 그냥 함수 안에 들어가는 함수.
+            console.log(this);
+        })
+    }
+)
+// answer : 1/2번 뜻. 2에 가까움. 함수가 쓰인 위치에 따라 this 값이 변함. 
+//그냥 일반 함수에서는 this는 window 임. 
+
+//case 2
+    var 오브젝트3 = {
+        이름들 : ['김', '이', '박'],
+        함수2 : function() {
+            console.log(this) //위 함수 소유한 오브젝트
+            오브젝트3.이름들.forEach(function(){
+                console.log(this) //window
+            })
+        }
+    }
+// answer: window
+// 근본없는 일반함수에서 출력하면 전역 오브젝트 나옴.
+
+//case3
+var 오브젝트4 = {
+        이름들 : ['김', '이', '박'],
+        함수2 : function() {
+            console.log(this) 
+            오브젝트4.이름들.forEach(()=>{ //arrow function 특징: 내부의 this값을 변화시키지 않음. 외부 this값 그대로 재사용 가능.
+                console.log(this) //위 함수 소유한 오브젝트
+            })
+        }
+    }
+// answer: 2. 이게 arrow function의 장점
+
+</script>
+
+

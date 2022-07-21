@@ -1,0 +1,98 @@
+import React, { Component, useState } from 'react';
+import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
+import backimg from './img/backimg.jpg'
+import './App.css';
+// import {a, b} from './data.js';
+import data from './data.js';
+import {Routes, Route, Link} from 'react-router-dom'
+
+
+
+function App() {
+
+  let [shoes] = useState(data)
+
+  return (
+    <div className="App">
+
+      <Navbar bg="light" variant="light">
+        <Container>
+          <Navbar.Brand href="#home">JINY SHOP</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#">Home</Nav.Link>
+            <Nav.Link href="#detail">Detail</Nav.Link>
+            <Nav.Link href="#about">About</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+
+      <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link>
+
+      <Routes>
+        <Route path="/" element={
+          <>
+            <div className="main-bg" style={{backgroundImage: 'url('+backimg+')'}}></div>
+          
+              <Container>
+              <Row className="justify-content-md-center">
+                {/* <Col> 하위 도메인에서도 꼬이지 않고 public 폴더 경로 쓰는 법
+                  <img src={process.env.PUBLIC_URL + '/logo512.png'} width="80%"/>
+                  <h4>상품명</h4>
+                  <p>상품설명</p>
+                </Col> */}
+                {/* <Col xs lg="2">
+                  <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%"/>
+                  <h4>{shoes[0].title}</h4>
+                  <p>상품설명</p>
+                </Col>
+                <Col md="auto">
+                  <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%"/>
+                  <h4>상품명</h4>
+                  <p>상품설명</p>
+                </Col>
+                <Col xs lg="2">
+                  <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%"/>
+                  <h4>상품명</h4>
+                  <p>상품설명</p>
+                </Col> */}
+                {
+                  shoes.map(function(a, i){
+                    return (<Card item={a} num={i+1} />)
+                  })
+                }
+        
+                {/* <Card item={shoes[0]}/> */}
+        
+              </Row>
+            </Container>
+          </>
+          }/>
+        <Route path="/detail" element={<div>상세페이지</div>}/>
+        <Route path="/about" element={<div>어바웃</div>}/>
+      </Routes>  
+    </div>
+  );
+}
+
+function Card(props) {
+  // let imgSrc = "https://codingapple1.github.io/shop/shoes"+ props.num +".jpg";
+  return (
+    <>
+    <Col xs lg="2">
+      <img src={'https://codingapple1.github.io/shop/shoes'+ props.num + '.jpg'} width="80%"/>
+      <h4>{props.item.title}</h4>
+      <p>{props.item.content}</p>
+      <p>{props.item.price}</p>
+    </Col>
+    </>
+  )
+}
+
+
+export default App;
+
+// 숙제
+// 1. 상품목록 컴포넌트화
+// 2. 상품명 데이터 바인딩
+// 3. 컴포넌트를 map 반복문으로 

@@ -1,0 +1,61 @@
+import { useParams } from "react-router-dom";
+import styled from 'styled-components';
+
+
+
+// 옛날 갈고리 다는 법 hook
+class Detail2 extends React.Component {
+    componentDidMount(){
+
+    }
+    componentDidUpdate(){
+
+    }
+    componentWillUnmount(){
+
+    }
+}
+
+
+
+let YellowBtn = styled.button`
+    background : yellow;
+    color : black;
+    padding : 10px;
+`
+
+let Box = styled.div`
+    background: ${props => props.bg}; // 이 문법은 걍 라이브러리 규칙임 이해 x
+    // background : ${props => props.bg == 'blue' ? 'white' : 'black'}
+    padding : 20px;
+`
+
+
+function Detail(props) {
+
+    let {id} = useParams();
+    let pickItem = props.shoes.find(function(x){
+        return x.id == id;
+    })
+
+    return (
+        <div className="container">
+            <Box bg="blue">
+                <YellowBtn>버튼</YellowBtn>
+            </Box>
+            <div className="row">
+                <div className="col-md-6">
+                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                </div>
+                <div className="col-md-6">
+                    <h4 className="pt-5">{pickItem.title}</h4>
+                    <p>{pickItem.content}</p>
+                    <p>{pickItem.price}원</p>
+                    <button className="btn btn-danger">주문하기</button> 
+                </div>
+            </div>
+        </div> 
+    )
+}
+
+export default Detail;

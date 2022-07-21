@@ -1,0 +1,82 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav';
+
+
+
+function Detail(props) {
+
+    let {id} = useParams();
+    let pickItem = props.shoes.find(function(x){ return x.id == id; });
+    let [count, setCount] = useState(0);
+    let [alert, setAlert] = useState(true);
+    let [num, setNum] = useState('');
+    let [tab, setTab] = useState(0)
+    
+
+    useEffect(() => {
+        let a = setTimeout(() => { setAlert(false)}, 2000)
+
+        return () => {
+            // useEffect 시행 전 실행되는 함수
+            // 기존 타이머 제거 함수
+            clearTimeout(a);
+        }
+    }, []) //dependency 가 변할때만 함수가 변환. 1회만 시행하고 싶을시 [] 빈칸으로 두는 팁.
+
+    useEffect(()=> {
+        if (isNaN(num) == true) {
+            window.alert('숫자만 입력해주세요');
+            // 어떻게 input 내용을 react 적으로 지우지?? -> 걍 원래 식으로 잡아서 지우래
+        }
+    },[num])
+
+    return (
+        <div className="container">
+            {
+                alert == true 
+                ? <div className="alert alert-warning">
+                    2초 이내 구매시 할인    
+                </div>
+                : null
+            }
+            <div className="row">
+                <div className="col-md-6">
+                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                </div>
+                <div className="col-md-6">
+                    <input onChange={(e)=>{setNum(e.target.value)}}/>
+                    <h4 className="pt-5">{pickItem.title}</h4>
+                    <p>{pickItem.content}</p>
+                    <p>{pickItem.price}원</p>
+                    <button className="btn btn-danger">주문하기</button> 
+                </div>
+            </div>
+            {/* <Nav variant="tabs" defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link href="link0">버튼0</Nav.Link>
+                </Nav.Item> 
+                <Nav.Item>
+                    <Nav.Link eventKey="link1">버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link2">버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            
+            </Nav>
+            {
+                tab == 0 ? <div>내용0</div> : null
+            }
+            {
+                tab == 1 ? <div>내용1</div> : null
+            }
+            {
+                tab == 2 ? <div>내용2</div> : null
+            } */}
+
+        </div> 
+    )
+}
+
+export default Detail;
