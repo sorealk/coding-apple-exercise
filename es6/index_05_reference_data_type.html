@@ -1,0 +1,70 @@
+<div></div>
+
+<script>
+
+    // primitive data type : 변수에 값이 그대로 저장됨
+    // reference data type
+
+    var 변수 = 1234;
+    var 어레이 = [1,2,3]; //<= reference가 저장됨. 
+    var obj = {name : 'Kim'} // <= reference가 저장됨
+
+
+    // reference data type 특징1 (object, array)
+
+    var 이름1 = '김';
+    var 이름2 = 이름1;
+    이름1 = '박';
+    // primitive data type이라
+    // 이름1=박, 이름2=김 나옴
+
+    var 이름3 = { name : '김' };
+    var 이름4 = 이름3;
+    이름3.name = '박';
+    // 이름1= {name:'박'} , 이름2={name:'박'}
+
+    // 따라서 object 생성 기계인 constructor를 만들어 써야함.
+
+    // 특징 2 오브젝트가 저기 있다는 화살표만 저장한 것.
+    var 이름5 = {name:'김'};
+    var 이름6 = {name:'김'};
+
+    이름5 == 이름6 // false임. 다른 화살표임. 
+
+    // 특징 3
+    var 이름7 = {name:'김'};
+
+    function 변경(obj){
+        // obj.name = 'Park'; //{name: 'Park'} 나옴
+        obj = { name : 'park'}; // ->오브젝트를 재할당 해주는 함수, 새로운 화살표가 생기는 셈.
+    }
+    변경(이름7); //재할당시 {name:'김'} 나옴.
+
+    // parameter와 refernce data type의 콜라보
+    // 파라미터는 변수생성 & 할당과 같음.
+    // 화살표인 이름7을 복사해서 변경함수에 넣은 것.
+
+
+/*
+    (인간의 시점)
+    var 이름1 = { name : '김' };
+    function 변경(obj){
+    obj = { name : 'park' };
+    }
+    변경(이름1);
+
+    (자바스크립트의 시점)
+
+    var 이름1 = { name : '김' };
+    function 변경(obj){
+    obj = { name : 'park' };
+    }
+    변경(var obj = 이름1);  
+*/
+
+
+
+
+</script>
+
+

@@ -2,6 +2,7 @@
 
 <script>
 
+
 //10. ES6-style-function
 
 // default parameter
@@ -35,13 +36,13 @@ function 함수2(...rest) {
 함수2(1,2,3,4,5,6,7);
 
 
-// 연습문제
-// 1. [김','밥', 1, 2, 3] (틀림)
+// <연습문제>
+// 1. -> [김','밥', 1, 2, 3] (틀림)
 // 2. 2 -> you (틀림)
 // 3. 11, 10 -> 9,10 (틀림) 산수;;
 // 4. 15
 // 5. 
-function 어레이(...rest){
+function 어레이(...rest){ //옛날방식 arguments 사용
     return rest
 }
 var newArray = 어레이(1,2,3,4,5);
@@ -49,7 +50,7 @@ console.log("-------5---------");
 console.log(newArray);
 
 // 6.
-var numbers = [2,3,4,5,6,1,3,2,5,5,4,6,7];
+var numbers = [2,3,4,5,6,1,3,2,5,5,4,6,7]; //옛날방식 apply 사용
 console.log("-------6---------");
 console.log(Math.max(...numbers))
 
@@ -63,24 +64,51 @@ console.log("-------7---------");
 console.log(정렬('bear'));
 
 // 8. 데이터마이닝 글자세기 함수
+// 더럽게도 짰다 나...
 function 글자세기(a) {
     var 정렬 = [...a];
     정렬 = 정렬.sort();
-    console.log(정렬);
+
     var obj = {};
-    for(var i=0; i<정렬.length-1; i++) {
-        var count;
-        if (정렬[i] == 정렬[i+1]) {
+    var count=0;
+
+    for(var i=0; i<정렬.length; i++) {
+        if(i+1 == 정렬.length)  {
             count++;
+            obj[정렬[i]] = count; 
         } else {
-            obj[정렬[i]] = count;
-            count =0;
+            if (정렬[i] == 정렬[i+1]) {
+                count++;
+            } else {
+                count++;
+                obj[정렬[i]] = count;
+                count =0;
+            }
         }
+
     }
     return obj;
 }
 console.log("-------8---------");
 console.log(글자세기('aabccc')) // {a:2, b:3, c:1}
+
+
+// 8 답안
+
+function 글자세기답(글자) {
+    var 결과 = {};
+    [...글자].forEach(function(a){
+
+        if(결과[a] > 0){
+            결과[a] = 결과[a] + 1;
+        } else {
+            결과[a] = 1;
+        }
+    });
+    console.log(결과);
+}
+console.log(글자세기답('aaccbbb'))
+
 
 </script>
 
